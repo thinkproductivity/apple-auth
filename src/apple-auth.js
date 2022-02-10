@@ -92,8 +92,18 @@ class AppleAuth {
                         url: 'https://appleid.apple.com/auth/token'
                     }).then((response) => {
                         resolve(response.data);
-                    }).catch((response) => {
-                        reject("AppleAuth Error - An error occurred while getting response from Apple's servers: " + response);
+                    }).catch((err) => {
+                        const nextErr = new Error("AppleAuth Error - An error occurred while getting response from Apple's servers: " + err);
+
+                        if (err.response) {
+                            nextErr.response = {
+                                data: err.response.data,
+                                status: err.response.status,
+                                headers: err.response.headers,
+                            };
+                        }
+
+                        reject(nextErr);
                     });
                 }).catch((err) => {
                     reject(err);
@@ -128,7 +138,17 @@ class AppleAuth {
                     }).then((response) => {
                         resolve(response.data);
                     }).catch((err) => {
-                        reject("AppleAuth Error - An error occurred while getting response from Apple's servers: " + err);
+                        const nextErr = new Error("AppleAuth Error - An error occurred while getting response from Apple's servers: " + err);
+
+                        if (err.response) {
+                            nextErr.response = {
+                                data: err.response.data,
+                                status: err.response.status,
+                                headers: err.response.headers,
+                            };
+                        }
+
+                        reject(nextErr);
                     });
                 }).catch((err) => {
                     reject(err);

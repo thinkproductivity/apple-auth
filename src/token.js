@@ -58,7 +58,7 @@ class AppleClientSecret {
                     keyid
                 }, (err, token) => {
                     if (err) {
-                        reject("AppleAuth Error – Error occurred while signing: " + err);
+                        reject(new Error("AppleAuth Error – Error occurred while signing: " + err));
                         return;
                     }
                     resolve(token);
@@ -94,7 +94,7 @@ class AppleClientSecret {
                     if (that._privateKeyMethod == 'file') {
                         fs.readFile(that._privateKeyLocation, (err, privateKey) => {
                             if (err) {
-                                reject("AppleAuth Error - Couldn't read your Private Key file: " + err);
+                                reject(new Error("AppleAuth Error - Couldn't read your Private Key file: " + err));
                                 return;
                             }
                             that._privateKey = privateKey;
